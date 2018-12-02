@@ -2,14 +2,14 @@ window.addEventListener('DOMContentLoaded', function () {
   // Получаем инфо со страницы
   let products = document.querySelectorAll('.product'),
     buttons = document.getElementsByTagName('button'),
-    open = document.getElementsByClassName('open')[0];
-  // shop = document.querySelector('shop');
+    open = document.getElementsByClassName('open')[0],
+    shop = document.getElementsByClassName('shop')[0];
 
   for (let i = 0; i < buttons.length; i++) {
     buttons[i].classList.add('buyButton');
   }
 
-  buttons = document.getElementsByClassName('buyButton');
+  buttons = document.querySelectorAll('.buyButton');
   // Функция для создания корзины
   function createCard() {
     // Создание элементов корзины
@@ -24,16 +24,16 @@ window.addEventListener('DOMContentLoaded', function () {
 
     // Наполнение элементов содержимым
     close.textContent = 'Закрыть';
-    heading.textContent = 'В нашей корзине:'
+    heading.textContent = 'В нашей корзине:';
 
-    // Добавление созданных документов в конец html документа
+    // Добавление созданных документов в конец html  документа
     document.body.appendChild(cart);
     cart.appendChild(heading);
     cart.appendChild(field);
     cart.appendChild(close);
   }
 
-  createCard();
+  createCard();  
 
   let cart = document.querySelector('.cart'),
     field = document.querySelector('.cart-field'),
@@ -42,21 +42,30 @@ window.addEventListener('DOMContentLoaded', function () {
   // Закрепление обработчика события клика за каждой из кнопок "Купить"
   for (let i = 0; i < buttons.length; i++) {
     buttons[i].addEventListener('click', function () {
-      // Создание копии карточки с товаром
-      let item = products[i].cloneNode(true),
-        btn = item.querySelector('button');
-      // Добавить карточку в корзину
-      field.appendChild(item);
-      // Удалить карточку из магазина
-      products[i].remove();
-      // Надпись на кнопке в корзине меняется на "Убрать из корзины" 
-      btn.textContent = 'Убрать из корзины';
-      // Размер кнопки в корзине увеличивается
-      function BtnCartWidth() {
-        btn.style.width = '140px'
-      };
-      BtnCartWidth();
-      // console.log(cartButton);
+      if (buttons[i].textContent == 'Купить!') {
+        buttons[i].textContent = 'Убрать из корзины';
+        field.appendChild(products[i]);
+        buttons[i].style.width = '140px';       
+      } else {
+        shop.appendChild(products[i]);
+        buttons[i].textContent = 'Купить!';
+        buttons[i].style.width = '70px';  
+      }
+      // // Создание копии карточки с товаром
+      // let item = products[i].cloneNode(true),
+      //   btn = item.querySelector('button');
+      // // Добавить карточку в корзину
+      // field.appendChild(item);
+      // // Удалить карточку из магазина
+      // products[i].remove();
+      // // Надпись на кнопке в корзине меняется на "Убрать из корзины" 
+      // btn.textContent = 'Убрать из корзины';
+      // // Размер кнопки в корзине увеличивается
+      // function BtnCartWidth() {
+      //   btn.style.width = '140px'
+      // };
+      // BtnCartWidth();
+      // // console.log(cartButton);
     })
 
 
